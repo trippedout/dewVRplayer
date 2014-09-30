@@ -8,7 +8,7 @@ of audio, using two binaural-audio rigs and two direcitonal mics, as well as ext
 attached to the athletes that were placed in the scene during post production. 
 
 Thanks to the good folks at Mountain Dew for allowing me to put this online. 
-Any feedback, questions, comments, etc, feel free to hit me up @trippedout.
+Any feedback, questions, comments, etc, feel free to hit me up [@trippedout](http://www.twitter.com/trippedout).
 
 Behind the scenes video here: 
 
