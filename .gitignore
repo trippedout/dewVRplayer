@@ -1,5 +1,6 @@
 .DS_Store
 xcode/build/
 assets/vr_skate.mov
+assets/audio/
 xcode/DewOculusPlayer.xcodeproj/project.xcworkspace/xcuserdata/
 xcode/DewOculusPlayer.xcodeproj/xcuserdata/

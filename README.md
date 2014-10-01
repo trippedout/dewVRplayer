@@ -17,7 +17,7 @@ http://www.mountaindew.com/vrskate/
 Running/Compiling
 -----------------
 
-Open project in Xcode. 
+The app is built using the [Cinder library](http://www.libcinder.org). Open project in Xcode.
 
 Make sure to edit your build settings to point to your local Cinder repo as well as
 proper OculusSDK includes and libraries.
@@ -32,7 +32,7 @@ Then add the necessary sound and video files for testing.
 
 You can find those files *coming soon*.
 
-You're video files should live in the /assets/ folder, and audio goes in /assets/audio/. 
+You're video files should live in the /assets/ folder, and audio defaults to in /assets/audio/. Check out the methods [```DewOculusPlayerApp::setupAudio()```](https://github.com/trippedout/dewVRplayer/blob/master/src/DewOculusPlayerApp.cpp#L176) and [```DewOculusPlayerApp::setupMovie()```](https://github.com/trippedout/dewVRplayer/blob/master/src/DewOculusPlayerApp.cpp#L209) for specifics.
 The app is expecting a square, top-over-bottom video file, and two audio files (which could technically eventually
 be merged into one). The first audio file is a 4 channel north-east-south-west recording, 
 the second is your 2-channel up down audio recording.
