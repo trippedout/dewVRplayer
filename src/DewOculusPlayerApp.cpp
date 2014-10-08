@@ -13,6 +13,8 @@
 #include "cinder/audio/NodeEffects.h"
 #include "cinder/audio/SamplePlayerNode.h"
 
+#include "cinder/Timeline.h"
+
 #include "FourChannel3DNode.h"
 #include "TwoChannelUpDownNode.h"
 
@@ -34,6 +36,7 @@ public:
     void setupAudio();
     void setupMovie();
     void keyDown(KeyEvent event);
+    void keyUp(KeyEvent event);
 	void update();
 	void draw();
     
@@ -49,6 +52,10 @@ private:
     OculusRiftRef       mOculusRift;
     
     qtime::MovieGlRef   mVideo;
+    
+    //bullet time
+    Anim<float>         mVideoSpeed;
+    bool                mIsBulletTime = false;
     
     //3d
     gl::GlslProgRef     mShaderProg;
@@ -102,6 +109,8 @@ void DewOculusPlayerApp::prepareSettings(Settings* settings)
 void DewOculusPlayerApp::setup()
 {
     setWindowSize(1920, 1080); //will only work for non-device
+    
+    mVideoSpeed = 1.0f;
     
     setupRift();
     setup3d();
@@ -279,8 +288,41 @@ void DewOculusPlayerApp::keyDown(KeyEvent event)
         mBarrelDistortionAmt += 0.005;
         //console() << "barrelDistortion: " << mBarrelDistortionAmt << endl;
     }
+    else if(event.getChar() == 'b') //bullet time!
+    {
+        if(!mIsBulletTime)
+        {
+            mIsBulletTime = true;
+            
+            mVideo->setRate(0.5f);
+            
+//            timeline().apply(&mVideoSpeed, 0.5f, 1.0f).updateFn([this]
+//            {
+//                console() << "videoSpeed: " << mVideoSpeed.value();
+//                mVideo->setRate(mVideoSpeed.value());
+//            });
+        }
+    }
     
     mOculusRift->keyDown(event);
+}
+
+void DewOculusPlayerApp::keyUp(KeyEvent event)
+{
+    if(event.getChar() == 'b') //bullet time!
+    {
+        if(mIsBulletTime)
+        {
+            mIsBulletTime = false;
+            
+            mVideo->setRate(1.0f);
+            
+//            timeline().apply(&mVideoSpeed, 1.0f, 1.0f).updateFn([this]
+//            {
+//                mVideo->setRate(mVideoSpeed.value());
+//            });
+        }
+    }
 }
 
 void DewOculusPlayerApp::update()
