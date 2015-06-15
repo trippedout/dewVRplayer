@@ -65,7 +65,7 @@ private:
     //audio
     audio::BufferPlayerNodeRef      mNeswBufferPlayerNode, mSkyGroundBufferNode;
     audio::FourChannel3DNodeRef     mFourChannelNode;
-    audio::TwoChannelUpDownNodeRef  mTwoChannelNode;
+//    audio::TwoChannelUpDownNodeRef  mTwoChannelNode;
     audio::GainNodeRef              mGainNode;
 };
 
@@ -113,7 +113,7 @@ void DewOculusPlayerApp::setup()
 void DewOculusPlayerApp::setArgs()
 {
     //defaults
-    mMovieUrl = "vr_skate.mov";
+    mMovieUrl = "iceland.mp4";
     
     vector<string> args = getArgs();
     for(int i = 0; i < args.size(); i++)
@@ -173,7 +173,7 @@ void DewOculusPlayerApp::setupAudio()
     mGainNode = ctx->makeNode(new audio::GainNode());
     
     //nesw
-	audio::SourceFileRef sourceFile = audio::load( loadAsset("audio/nesw.aiff"), ctx->getSampleRate() );
+	audio::SourceFileRef sourceFile = audio::load( loadAsset("iceland.wav"), ctx->getSampleRate() );
     
     audio::BufferRef neswBuffer = sourceFile->loadBuffer();
 	mNeswBufferPlayerNode = ctx->makeNode( new audio::BufferPlayerNode( neswBuffer ) );
@@ -185,23 +185,23 @@ void DewOculusPlayerApp::setupAudio()
     
     
     //updown
-    audio::SourceFileRef skyGroundSource = audio::load( loadAsset("audio/skyground.aiff"), ctx->getSampleRate() );
-    
-    audio::BufferRef skyBuffer = skyGroundSource->loadBuffer();
-    mSkyGroundBufferNode = ctx->makeNode(new audio::BufferPlayerNode(skyBuffer));
-    
-    audio::Node::Format skyFormat;
-    skyFormat.setChannels(2);
-    mTwoChannelNode = ctx->makeNode(new audio::TwoChannelUpDownNode( skyFormat ));
-    
-    mSkyGroundBufferNode >> mTwoChannelNode >> mGainNode >> ctx->getOutput();
-    
+//    audio::SourceFileRef skyGroundSource = audio::load( loadAsset("audio/skyground.aiff"), ctx->getSampleRate() );
+//    
+//    audio::BufferRef skyBuffer = skyGroundSource->loadBuffer();
+//    mSkyGroundBufferNode = ctx->makeNode(new audio::BufferPlayerNode(skyBuffer));
+//    
+//    audio::Node::Format skyFormat;
+//    skyFormat.setChannels(2);
+//    mTwoChannelNode = ctx->makeNode(new audio::TwoChannelUpDownNode( skyFormat ));
+//    
+//    mSkyGroundBufferNode >> mTwoChannelNode >> mGainNode >> ctx->getOutput();
+//    
     //just a precaution to pre-load buffer like with qtime
     mNeswBufferPlayerNode->start();
-    mSkyGroundBufferNode->start();
+//    mSkyGroundBufferNode->start();
     
     mNeswBufferPlayerNode->stop();
-    mSkyGroundBufferNode->stop();
+//    mSkyGroundBufferNode->stop();
     
     ctx->enable();
 }
@@ -240,13 +240,13 @@ void DewOculusPlayerApp::keyDown(KeyEvent event)
         //like the buffer wouldnt fully clear or it would jump a bit, not sure.
         
         mNeswBufferPlayerNode->seekToTime(0);
-        mSkyGroundBufferNode->seekToTime(0);
+//        mSkyGroundBufferNode->seekToTime(0);
         mVideo->seekToStart();
         
         if(!mVideo->isPlaying())
         {
             mNeswBufferPlayerNode->start();
-            mSkyGroundBufferNode->start();
+//            mSkyGroundBufferNode->start();
             mVideo->play();
         }
     }
@@ -254,7 +254,7 @@ void DewOculusPlayerApp::keyDown(KeyEvent event)
     else if (event.getCode() == KeyEvent::KEY_ESCAPE)
     {
         mNeswBufferPlayerNode->stop();
-        mSkyGroundBufferNode->stop();
+//        mSkyGroundBufferNode->stop();
         
         mVideo->stop();
         mVideo->seekToStart();
@@ -303,7 +303,7 @@ void DewOculusPlayerApp::update()
     
     //update audio channels
     mFourChannelNode->setValue(rotation);
-    mTwoChannelNode->setValue(upDown);
+//    mTwoChannelNode->setValue(upDown);
 }
 
 void DewOculusPlayerApp::draw()
